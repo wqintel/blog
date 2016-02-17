@@ -1,3 +1,5 @@
+http://os.51cto.com/art/201404/437164.htm
+
 服务器型号有r410、r420、r710、r720，系统有Centos 5.x、Centos 6.x 、Redhat 5.x、Redhat 6.x、Ubuntu 12.04、Ubuntu 12.04.4等版本，对于硬件监控，我测试过Ipmi、Megacli、Smart等，但这些监控软件的监控内容都比较少，没有通用的那种，最后找到了Dell专门的Omsa，满足了我的需求，下面就介绍一下使用Omsa来监控Dell服务器的硬件信息。
 
 目前我监控以下的硬件信息：
