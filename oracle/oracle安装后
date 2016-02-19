@@ -15,3 +15,12 @@ Oracle安装后
 修改之后不需要重启动数据库，会立即生效
 修改后，还没有被提示ORA-28002警告的帐户不会再碰到同样的提示
 已经被提示的帐户必须再改一次密码
+
+3、设置连接数
+查看参数：
+  show parameter processes;
+  show parameter sessions;
+参数设置：
+  alter system set processes=300 scope=spfile;
+  alter system set sessions=335 scope=spfile;
+修改processes和sessions值必须重启oracle服务器才能生效
