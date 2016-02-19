@@ -21,6 +21,6 @@ Oracle安装后
   show parameter processes;
   show parameter sessions;
 参数设置：
-  alter system set processes=300 scope=spfile;
-  alter system set sessions=335 scope=spfile;
-修改processes和sessions值必须重启oracle服务器才能生效
+  alter system set processes=1024 scope=spfile;
+  alter system set sessions=1560 scope=spfile;
+修改processes后oracle会自动修改sessions数量，修改完成后必须重启oracle服务器才能生效
