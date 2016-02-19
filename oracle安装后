@@ -1,0 +1,18 @@
+Oracle安装后
+
+1、Oracle内存自动管理：
+调整/dev/shm大小
+  tmpfs                   /dev/shm                tmpfs   size=10G,defaults        0 0
+设置内存
+  alter system set memory_max_target=10G scioe=spfile;
+  shutdown immediate;
+  startup;
+  alter system set memory_target = 10G;
+
+2、用户密码策略
+将密码有效期由默认的180天修改成“无限制”：
+  ALTER PROFILE DEFAULT LIMIT PASSWORD_LIFE_TIME UNLIMITED;
+修改之后不需要重启动数据库，会立即生效
+修改后，还没有被提示ORA-28002警告的帐户不会再碰到同样的提示
+已经被提示的帐户必须再改一次密码
+
