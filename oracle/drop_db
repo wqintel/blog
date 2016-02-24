@@ -1,0 +1,75 @@
+一、手动删除文件系统数据库
+
+1.停止监听与OEM
+
+    $ lsnrctl stop listener_name
+
+    $ emctl stop dbconsole
+
+
+
+2.获得数据文件，日志文件及控制文件的相关信息，包含归档       
+
+    $ sqlplus / as sysdba
+
+    SQL> select status,name from v$controlfile;   --获取控制文件的位置信息
+
+    SQL> select * from v$dbfile;                  --获取数据文件的位置信息
+
+    SQL> select * from v$logfile;                 --获取日志文件的位置信息
+
+    SQL> archive log list;                        --查看归档的sequence及位置信息
+
+    SQL> shutdown abort;                          --因数据不再需要，直接shutdown abort
+
+
+
+3.启动到 mount 状态(使用exclusive restart)
+
+    SQL> startup mount exclusive restrict;
+
+
+
+4.修改参数为允许受限的会话模式
+
+    SQL> alter system enable restricted session;
+
+
+
+5.使用drop database命令来清除数据库
+
+    SQL> drop database;
+
+    SQL> exit
+
+
+
+6.手动清除相关文件
+
+    $ echo $ORACLE_SID    --确认当前的ORACLE_SID
+
+    $ rm -rf $ORACLE_BASE/admin/$ORACLE_SID         --删除oracle base目录下的$ORACLE_SID的所有内容
+
+    $ rm -rf $ORACLE_BASE/oradata/$ORACLE_SID       --oradata下的数据文件，根据前面的查询，注意要删除不同路径下的数据文件
+
+    $ rm -rf $ORACLE_BASE/arch/$ORACLE_SID          --清除归档日志，注意归档路径的正确性
+
+    $ rm -rf $ORACLE_BASE/flash_recovery_area/$ORACLE_SID   --清除闪回区的内容
+
+    $ rm -rf $ORACLE_HOME/dbs/*$ORACLE_SID*                 --清除参数文件     */
+
+
+
+7.清除监听相关文件(建议)
+
+    $ rm $TNS_ADMIN/*.ora    --如果设定了$TNS_ADMIN变量，否则删除默认路径下的监听文件   */
+
+    $ rm $ORACLE_HOME/network/admin/*.ora            */
+
+
+
+8.修改oratab文件以及.bash_profile
+
+    $ vi /etc/oratab        --去掉实例相关的设置
+
+    $ vi ~/.bash_profile    --去掉实例相关的设置
