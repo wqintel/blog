@@ -4,6 +4,7 @@ Oracle安装后
 调整/dev/shm大小
   tmpfs                   /dev/shm                tmpfs   size=10G,defaults        0 0
 设置内存
+  show parameter memory_target
   alter system set memory_max_target=10G scope=spfile;
   shutdown immediate;
   startup;
