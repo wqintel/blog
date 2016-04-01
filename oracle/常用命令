@@ -4,6 +4,7 @@ create tablespace TBS_XXX datafile '/database/oradata/ccs/tbs_xxx01.dbf' size 1G
 select username,account_status from dba_users;
 alter user xxx account lock;
 select username,default_tablespace,temporary_tablespace from dba_users where username = 'xxx';
+select t.grantee,t.granted_role, t.admin_option, t.default_role from dba_role_privs t where t.grantee = 'xxx';
 
 impdp前需先建立对应表空间，用户会自动创建
 impdp system/manager dumpfile=xxx.dmp logfile=xxx.log directory=dump_dir schemas=xxx
