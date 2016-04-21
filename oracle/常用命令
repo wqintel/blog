@@ -1,4 +1,4 @@
-
+Oracle listener等尽量使用IP，不要配置/etc/reslove.conf（外网中断的时候会引起连接异常）
 create tablespace TBS_XXX datafile '/database/oradata/ccs/tbs_xxx01.dbf' size 1G autoextend on next 500M;
 CREATE USER username IDENTIFIED BY "xxx"  DEFAULT TABLESPACE tablespace ACCOUNT UNLOCK;
 grant connect, resource to xxx;
@@ -10,3 +10,12 @@ select t.grantee,t.granted_role, t.admin_option, t.default_role from dba_role_pr
 
 impdp前需先建立对应表空间，用户会自动创建
 impdp system/manager dumpfile=xxx.dmp logfile=xxx.log directory=dump_dir schemas=xxx
+
+删除用户：
+drop user xxx cascade;
+select username,default_tablespace from dba_users;
+drop tablespace xxx including contents and datafiles;
+
+expdp/impdp schemas模式：
+expdp system/xxx schemas=xx,xx directory=dump_dir dumpfile=xxx.dmp logfile=xxx.log job_name=xxx;
+impdp system/xxx dumpfile=xxx.dmp logfile=xxx.log directory=dump_dir schemas=xxx,xxx
