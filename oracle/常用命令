@@ -19,3 +19,10 @@ drop tablespace xxx including contents and datafiles;
 expdp/impdp schemas模式：
 expdp system/xxx schemas=xx,xx directory=dump_dir dumpfile=xxx.dmp logfile=xxx.log job_name=xxx;
 impdp system/xxx dumpfile=xxx.dmp logfile=xxx.log directory=dump_dir schemas=xxx,xxx
+
+表闪回
+select count(*) from xxx as of timestamp to_timestamp('2016-04-27 16:05:00','yyyy-mm-dd hh24:mi:ss');
+表闪回要求用户必须要有flash any table权限，首先，必须对表进行下以下操作：
+alter table xxx enable row movement;
+执行闪回操作
+flashback table xxx to timestamp to_timestamp('2007-02-11 23:34:05','yyyy-mm-dd hh24:mi:ss');
